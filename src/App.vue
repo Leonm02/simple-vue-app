@@ -37,6 +37,5 @@ header h1{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   width: 100%;
-  height: 50%;
 }
 </style>
