@@ -3,31 +3,33 @@
     <div class='ui container'>
 
         <div class="obereBox">
-                
-        <video v-if="!imageData.image" ref="video" class="camera-stream2" />
-        <img v-else :src="imageData.image" v-bind:style="{transform: 'rotate(' + imageData.image_orientation + 'deg'}" class="camera-stream">
-        <div class='ui divider'></div>
-
+            <video v-if="!imageData.image" ref="video" class="camera-stream2"/>
+            <img v-else :src="imageData.image" v-bind:style="{transform: 'rotate(' + imageData.image_orientation + 'deg'}" class="camera-stream">
+            <div class='ui divider'></div>
         </div>
 
         <div class="untereBox">
             <div class="icon-group">   
-            <button  class="camera-icon" @click="captureImage">
-                <i class="big camera icon" ></i>
-                <p>Take Picture</p>
-            </button>
+                <button  class="camera-icon" @click="captureImage">
+                    <i class="big camera icon" ></i>
+                    <p>Take Picture</p>
+                </button>
 
-            <button class="camera-icon" @click="cancelImage">
-                <i class="big cancel icon"></i>
-                <p>delete all</p>
-            </button>
-        </div>
+                <button class="camera-icon" @click="cancelImage">
+                    <i class="big cancel icon"></i>
+                    <p>delete all</p>
+                </button>
+            </div>
         </div>
         
-
         <div class="GalleryBox">
-            <img v-for="(imageData, index) in List" :key="index" :src="imageData.image" class="camera-stream" />
+            <div class="BoxBilder" v-for="(imageData, index) in List" :key="index">
+                <button class="btn" @click="delete" >X</button>
+                    <img  :src="imageData.image" class="camera-stream" />
+                    
+            </div>
         </div>
+        
         
     
     </div>
@@ -53,6 +55,7 @@ export default {
         }
     },
     methods: {
+    
         captureImage() {
             const mediaStreamTrack = this.mediaStream.getVideoTracks()[0]
             const imageCapture = new window.ImageCapture(mediaStreamTrack)
@@ -87,15 +90,29 @@ export default {
                     this.mediaStream = mediaStream                   
             })   
     },
+    delete(){
+        this.List.splice(0, 1);
+    }
 }
 </script>
 
 <style>
+.btn {
+ width: 30px;
+ height: 30px;
+ position: absolute;
+}
 .GalleryBox{
     background-color: #3685fc;
     display: flex;
     flex-wrap: wrap;
 
+}
+.BoxBilder{
+   width: 30%;
+   margin: 1.5%;
+   display: flex;
+    flex-wrap: wrap;
 }
 .obereBox{
     background-color: #3e3e3e;
@@ -152,8 +169,8 @@ height: auto;
   transform: scale(0.95);
 }
     .camera-stream {
-        margin: 10px 10px;
-        width: 20%;
+
+        width: 100%;
     }
     .camera-stream2 {
         margin: 10px 50px;
