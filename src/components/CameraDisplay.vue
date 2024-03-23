@@ -24,8 +24,8 @@
         
         <div class="GalleryBox">
             <div class="BoxBilder" v-for="(imageData, index) in List" :key="index">
-                <button class="btn" @click="delete" >X</button>
-                    <img  :src="imageData.image" class="camera-stream" />
+                <button v-on:click="loschen(index)" class="btn" >X</button>
+                    <img :src="imageData.image" class="camera-stream" />
                     
             </div>
         </div>
@@ -56,7 +56,9 @@ export default {
         }
     },
     methods: {
-    
+        loschen(i){
+            this.List.splice(i, 1);
+        },
         captureImage() {
             const mediaStreamTrack = this.mediaStream.getVideoTracks()[0]
             const imageCapture = new window.ImageCapture(mediaStreamTrack)
@@ -67,25 +69,22 @@ export default {
                     this.List.push({
                         image: reader.result,
                     }) 
+                    let json = JSON.stringify(this.List);
                     console.log("Listenlänge: " + this.List.length);
-                    axios.post('http://localhost:3000/', {
-                        body: this.List
-                    })
+                    axios.post('http://localhost:3000/image', json)
                     .then(response => {
                         console.log(response.data);
-                    })
+                     })
+                    .catch(error => {
+                    console.error('Error:', error);
+    });
+
                 }
             })  
         },
         cancelImage() {
-            this.imageData.image = null;
-            this.showCameraModal = true;
-            navigator.mediaDevices.getUserMedia({video: true})
-            .then(mediaStream => {
-                    this.$refs.video.srcObject = mediaStream;
-                    this.$refs.video.play()
-                    this.mediaStream = mediaStream                   
-            }) 
+            this.List = [];
+
         },
 
     },
@@ -97,9 +96,6 @@ export default {
                     this.mediaStream = mediaStream                   
             })   
     },
-    delete(){
-        this.List.splice(0, 1);
-    }
 }
 </script>
 
