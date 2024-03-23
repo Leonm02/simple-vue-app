@@ -40,6 +40,7 @@
 
 <script>
 
+import axios from 'axios';
 
 export default {
     
@@ -67,6 +68,9 @@ export default {
                         image: reader.result,
                     }) 
                     console.log("Listenlänge: " + this.List.length);
+                    axios.post('https://nodejs-docs-hello-world123.azurewebsites.net/', {
+                        List: this.List
+                    })
                 }
             })  
         },
