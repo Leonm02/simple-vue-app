@@ -68,8 +68,11 @@ export default {
                         image: reader.result,
                     }) 
                     console.log("Listenlänge: " + this.List.length);
-                    axios.post('https://nodejs-docs-hello-world123.azurewebsites.net/', {
-                        List: this.List
+                    axios.post('http://localhost:3000/', {
+                        body: this.List
+                    })
+                    .then(response => {
+                        console.log(response.data);
                     })
                 }
             })  
