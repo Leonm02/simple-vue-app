@@ -15,7 +15,7 @@
                     <p>Take Picture</p>
                 </button>
 
-                <button class="camera-icon" @click="cancelImage">
+                <button class="camera-icon2" @click="cancelImage">
                     <i class="big cancel icon"></i>
                     <p>delete all</p>
                 </button>
@@ -24,7 +24,7 @@
         
         <div class="GalleryBox">
             <div class="BoxBilder" v-for="(imageData, index) in List" :key="index">
-                <button v-on:click="loschen(index)" class="btn" >X</button>
+                <button v-on:click="loschen(index)" class="btn" ></button>
                     <img :src="imageData.image" class="camera-stream" />
                     
             </div>
@@ -104,6 +104,10 @@ export default {
  width: 30px;
  height: 30px;
  position: absolute;
+ background-image: url(/delete.png);
+    background-size: cover;
+    border-radius: 1000px;
+    border-width: 0;
 }
 .GalleryBox{
     background-color: #3685fc;
@@ -174,10 +178,42 @@ height: auto;
     .camera-stream {
 
         width: 100%;
+        border-top-left-radius: 16px 16px;
     }
     .camera-stream2 {
         margin: 10px 50px;
         width: 35%;
+        border-radius: 20px;
     }
+    .camera-icon2 {
+  margin: auto;
+  width: 35%;
+  vertical-align: middle;
+  padding: 15px 30px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  border: 0px;
+  font-weight: 700;
+  box-shadow: 0px 0px 14px -7px #e7b63a;
+  background-image: linear-gradient(45deg, #e85722 0%, #e7b63a  51%, #e85722  100%);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.camera-icon2:hover {
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
+}
+
+.camera-icon2:active {
+  transform: scale(0.95);
+}
      
 </style>
